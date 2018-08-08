@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: 'review-database',
+  host: 'localhost',
   user: 'root',
   password: '',
   database: 'reviews',
