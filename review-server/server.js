@@ -1,19 +1,17 @@
+import cors from 'cors';
+import path from 'path';
+import bodyParser from 'body-parser';
+import express from 'express';
 import {
   getAggregate,
   getReviews,
   getImages,
   addReview,
-  addComment,
   updateReview,
   deleteReview,
-  reportComment,
 } from './serverHelpers';
-import { db } from '../review-database/connection';
 
-import express from 'express';
-import bodyParser from 'body-parser';
-import path from 'path';
-import cors from 'cors';
+// import { db } from '../review-database/connection';
 
 const app = express();
 const port = process.env.PORT || 3004;
@@ -54,6 +52,7 @@ app.post('*/reviews/adduser', (req, res) => {
       return res.status(500).send(err);
     }
     res.sendStatus(201);
+    return null;
   });
 });
 
@@ -64,6 +63,7 @@ app.put('*/reviews/updateuser', (req, res) => {
       return res.status(500).send(err);
     }
     res.sendStatus(201);
+    return null;
   });
 });
 
@@ -74,22 +74,8 @@ app.delete('*/reviews/deleteuser', (req, res) => {
       return res.status(500).send(err);
     }
     res.sendStatus(201);
-  })
-})
-
-app.post('*/reviews/addcomment', (req, res) => {
-  // TODO: add comment posting
-  res.send();
-});
-
-app.post('*/reviews/reviewfeedback', (req, res) => {
-  // TODO: add review helpful/not_helpful incrementing
-  res.send();
-});
-
-app.post('*/reviews/reportcomment', (req, res) => {
-  // TODO: add abuse incrementing
-  res.send();
+    return null;
+  });
 });
 
 app.use('*/*', express.static('public'));
