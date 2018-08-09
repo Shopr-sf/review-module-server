@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 
 import { db } from '../review-database/connection';
+import { generateUsername } from '../review-database/seedHelpers';
 
 const getAggregate = productId => new Promise((resolve) => {
   db.query(`SELECT * FROM aggregates WHERE product_id=${productId};`, (err, data) => {
@@ -41,11 +42,12 @@ const getComments = review => new Promise((resolve) => {
 });
 
 // TODO: complete
-const addReview = (review) => {
+const addReview = (username, img, callback) => {
 // add users record if new
 // add reviews record (w/ foreign key user_id)
 // add images record if applicable (w/ foreign key review_id)
 // update/get aggregates
+  db.query(`INSERT INTO users(username, img) VALUES(?, ?)`, [username, img], callback);
 };
 
 // TODO: complete
@@ -55,8 +57,13 @@ const addComment = (comment) => {
 };
 
 // TODO: complete
-const updateReview = (category) => {
+const updateReview = (username, img, id, callback) => {
+  db.query(`UPDATE users SET username = ?, img = ? WHERE (id = ?)`, [username, img, id], callback);
 // increment/decrement helpful, not_helpful, or abuse in review record
+};
+
+const deleteReview = (id, callback) => {
+  db.query(`DELETE FROM users WHERE id = ?`, [id], callback);
 };
 
 // TODO: complete
@@ -72,5 +79,6 @@ export {
   addReview,
   addComment,
   updateReview,
+  deleteReview,
   reportComment,
 };

@@ -5,6 +5,7 @@ import {
   addReview,
   addComment,
   updateReview,
+  deleteReview,
   reportComment,
 } from './serverHelpers';
 import { db } from '../review-database/connection';
@@ -20,8 +21,9 @@ const port = process.env.PORT || 3004;
 app.use(cors());
 
 const jsonParser = bodyParser.json();
+app.use(jsonParser);
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
+app.use(urlencodedParser);
 app.get('*/reviewBundle.js', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/reviewBundle.js'));
 });
@@ -45,10 +47,35 @@ app.get('*/reviews/comments/:reviewId', (req, res) => {
   res.send();
 });
 
-app.post('*/reviews/addreview', (req, res) => {
-  // TODO: add review posting
-  res.send();
+app.post('*/reviews/adduser', (req, res) => {
+  const { username, img } = req.body;
+  addReview(username, img, (err) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.sendStatus(201);
+  });
 });
+
+app.put('*/reviews/updateuser', (req, res) => {
+  const { username, img, id } = req.body;
+  updateReview(username, img, id, (err) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.sendStatus(201);
+  });
+});
+
+app.delete('*/reviews/deleteuser', (req, res) => {
+  const { id } = req.body;
+  deleteReview(id, (err) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.sendStatus(201);
+  })
+})
 
 app.post('*/reviews/addcomment', (req, res) => {
   // TODO: add comment posting
