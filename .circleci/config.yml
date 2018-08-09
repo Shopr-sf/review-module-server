@@ -68,6 +68,10 @@ jobs:
         command: npm run aggregate #migrating aggregate data to database
 
       - run:
+        name: jsx compilation
+        command: npm run build #webpack
+
+      - run:
         name: server initialization
         command: npm run serve
         background: true

@@ -1,7 +1,7 @@
 import request from 'supertest';
 // import sinon from 'sinon';
 
-import api from '../server/start.js';
+import api from '../server/start';
 
 describe('Server', () => {
   it('should be able to run tests', () => {

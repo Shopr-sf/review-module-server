@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js',
+    filename: 'reviewBundle.js',
   },
   resolve: { extensions: ['*', '.js', '.jsx'] },
   module: {

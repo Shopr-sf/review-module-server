@@ -1,10 +1,17 @@
-import {
-  fixedArray,
-} from './seedHelpers';
+// import {
+//   fixedArray,
+// } from './seedHelpers';
+// console.log('ErRrRrRr');
 
-const productIds = fixedArray(100);
+const fixedArray = (size) => {
+  return Array(size).fill().map((x, i) => i + 1);
+};
 
 const userIds = fixedArray(250);
+const productIds = fixedArray(100);
+// console.log('NoT error');
+
+
 
 const hipsum = [];
 hipsum.push('Lorem ipsum dolor amet wayfarers tbh echo park, occaecat cupidatat migas poutine humblebrag gochujang schlitz artisan hashtag eiusmod celiac vexillologist. Pinterest vinyl tacos snackwave franzen. Vegan vice humblebrag, commodo ut yuccie polaroid meditation cardigan. Dolore venmo sed nisi dolor, keffiyeh elit occaecat cardigan asymmetrical. Irure keffiyeh thundercats commodo hoodie lyft. Next level beard voluptate pug.');

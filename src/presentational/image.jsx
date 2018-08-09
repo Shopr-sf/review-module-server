@@ -1,13 +1,15 @@
 import React from 'react';
 
-const Image = props => (
-  <div>
-    Image
-    {/*Helpful button*/}
-    {/*Not Helpful button*/}
-    {/*Comment button*/}
-    {/*Report abuse button*/}
-  </div>
-);
+import styles from '../styles.css';
 
-export default Image;
+const urlify = file => file.replace(' ', '+');
+
+const Img = ({ image }) => {
+  return (
+    <div className={styles.image}>
+      <img src={`https://s3.amazonaws.com/viamis-review-module-product-pics/${urlify(image.url)}`} alt={image.title}></img>
+    </div>
+  );
+};
+
+export default Img;

@@ -42,7 +42,6 @@ class Service extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <a id="reviews" href={`*/#reviews`}></a>
