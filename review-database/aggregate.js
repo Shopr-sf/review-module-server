@@ -29,6 +29,8 @@ const generateAggregate = product => new Promise((resolve) => {
   });
 });
 
+// productID = [1, 2, 3, ....100]
+// aggregates = an array of promises that inserts data to database;
 const aggregates = productIds.map(product => generateAggregate(product));
 
 const stream = fs.createWriteStream('database/aggregate.sql');

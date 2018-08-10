@@ -22,6 +22,7 @@ const jsonParser = bodyParser.json();
 app.use(jsonParser);
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(urlencodedParser);
+
 app.get('*/reviewBundle.js', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/reviewBundle.js'));
 });
