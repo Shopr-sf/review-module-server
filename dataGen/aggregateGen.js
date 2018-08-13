@@ -23,7 +23,7 @@ const aggregateGen = (start, end) => {
 };
 for (let i = 0; i < 10; i += 1) {
   console.log(i);
-  fs.appendFileSync('aggregatePractice.csv', aggregateGen(i * 100 + 1, (i + 1) * 100), 'utf8');
+  fs.appendFileSync('aggregate.csv', aggregateGen(i * 100 + 1, (i + 1) * 100), 'utf8');
 }
 
 console.timeEnd('Function #1');
