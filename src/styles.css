@@ -212,6 +212,7 @@ html, body {
   grid-row: top-border / center-top-border;
   grid-column: auto / auto;
   display: grid;
+  /* grid-template-columns: auto; */
   grid-template-columns: [left-border] 1fr [center-left-border] 1fr [center-border] 1fr [center-right-border] 1fr [right-border];
   grid-template-rows: auto;
   grid-gap: 10px 10px;

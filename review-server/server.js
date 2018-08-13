@@ -28,16 +28,16 @@ app.get('*/reviewBundle.js', (req, res) => {
 });
 
 app.get('*/reviews/summary/:productId', (req, res) => {
-  const product = Number(req.params.productId);
-  if (typeof product !== 'number') {
+  const product = Number(req.params.productId.replace(/[^0-9]/g,''));
+	if (typeof product !== 'number') {
     res.sendStatus(400);
   }
-  getAggregate(product).then(summary => res.send(summary));
+  getAggregate(product).then(summary => (res.send(summary)));
 });
 
 app.get('*/reviews/:productId', (req, res) => {
-  const product = Number(req.params.productId);
-  if (typeof product !== 'number') res.sendStatus(400);
+  const product = Number(req.params.productId.replace(/[^0-9]/g,''));
+	if (typeof product !== 'number') res.sendStatus(400);
   getReviews(product, getImages).then(results => res.send(results));
 });
 
