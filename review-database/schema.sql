@@ -6,8 +6,8 @@ USE reviews;
 
 CREATE TABLE users (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-username VARCHAR(250),
-img VARCHAR(250)
+username VARCHAR(22),
+img VARCHAR(22)
 );
 
 CREATE TABLE reviews (
@@ -22,12 +22,13 @@ review VARCHAR(220),
 helpful INT(1),
 not_helpful INT(1),
 abuse INT(1),
+FOREIGN KEY (product_id) REFERENCES aggregates(product_id),
 FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE aggregates (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-product_id VARCHAR(20),
+product_id INT,
 score DECIMAL(2,1),
 qty INT(2),
 five INT(2),

@@ -3,6 +3,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import express from 'express';
 import {
+  getAll,
   getAggregate,
   getReviews,
   getImages,
@@ -25,6 +26,14 @@ app.use(urlencodedParser);
 
 app.get('*/reviewBundle.js', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/reviewBundle.js'));
+});
+
+app.get('*/reviews/all/:productId', (req, res) => {
+  const product = Number(req.params.productId.replace(/[^0-9]/g,''));
+	if (typeof product !== 'number') {
+    res.sendStatus(400);
+  }
+  getAll(product).then(summary => (res.send(summary)));
 });
 
 app.get('*/reviews/summary/:productId', (req, res) => {

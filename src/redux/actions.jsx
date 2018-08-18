@@ -43,23 +43,56 @@ const receiveReviews = (reviews) => {
   };
 };
 
+// const fetchAggregates = product => (dispatch) => {
+//   dispatch(requestAggregates(product));
+//   fetch(`reviews/${product}`)
+//     .then((data, err) => {
+//       if (err) console.log('An error occurred.', err);
+//       return data.json();
+//     }).then(json => {
+//       return dispatch(receiveReviews(json))
+//     });
+// };
+
 const fetchAggregates = product => (dispatch) => {
   dispatch(requestAggregates(product));
-  fetch(`reviews/${product}`)
+  fetch(`reviews/all/${product}`)
     .then((data, err) => {
       if (err) console.log('An error occurred.', err);
       return data.json();
-    }).then(json => dispatch(receiveReviews(json)));
+    }).then(json => {
+      console.log('fetch aggregate', json);
+      
+
+      let output = {
+        images: [[{url: "images (18) copy.jpeg"}, {url: "images (18) copy.jpeg"}, {url: "images (18) copy.jpeg"}]],
+        // reviews: [
+        //   {img: "images (11).jpeg", date: "2018-08-13T05:06:34.000Z", product_id: 29, rating: 5, review: "Lorem ipsum dolor ", title: "KFC", username: "polaroid", verified: true},
+        //   {img: "images (11).jpeg", date: "2018-08-13T05:06:34.000Z", product_id: 29, rating: 5, review: "Lorem ipsum dolor ", title: "Burger King", username: "polaroid", verified: true},
+        //   {img: "images (11).jpeg", date: "2018-08-13T05:06:34.000Z", product_id: 29, rating: 5, review: "Lorem ipsum dolor ", title: "McDonald", username: "polaroid", verified: false}
+        // ]
+        reviews: json
+      }
+      // json = [{id: 21, five: 5, four: 4, three: 3, two: 2, one: 1, qty: 15, score: 2.8, product_id: 21}];
+      // console.log('fetch aggregate', json);
+      return dispatch(receiveReviews(output))
+    });
 };
 
 const fetchReviews = product => (dispatch) => {
   dispatch(requestReviews(product));
-  fetch(`reviews/summary/${product}`)
+  fetch(`reviews/all/${product}`)
     .then((data, err) => {
       if (err) console.log('An error occurred.', err);
       return data.json();
-    }).then(json => dispatch(receiveAggregates(json[0])));
+    }).then(json => {
+      return dispatch(receiveAggregates(json[0]))
+    });
 };
+
+// const fetchAll = product => (dispatch) => {
+//   dispatch()
+// }
 
 const widgetModal = () => {
   return {

@@ -1,9 +1,22 @@
 import Promise from 'bluebird';
 
 import { db } from '../review-database/connection';
+
+import { pool } from '../postgres-database/connection';
 // import { generateUsername } from '../review-database/seedHelpers';
 
 // getAggregate is a function that passes in 'prouctId' as parameter, and ouputs a promise
+
+
+const getAll = productId => new Promise((resolve) => {
+  pool.query('SELECT * FROM alltable WHERE product_id = ($1)', [productId])
+    .then((res) => {
+      resolve(res.rows);
+    })
+    .catch(e => console.error(e.stack));
+});
+
+
 const getAggregate = productId => new Promise((resolve) => {
   db.query(`SELECT * FROM aggregates WHERE product_id=${productId};`, (err, data) => {
     if (err) return 404;
@@ -16,7 +29,6 @@ const getReviews = (product, callback) => new Promise((resolve) => {
   console.log(product);
   db.query(`SELECT * FROM reviews INNER JOIN users ON reviews.user_id=users.id WHERE product_id=${product}`, (err, data) => {
     if (err) return 404;
-    console.log('Db data: ', data);
     resolve(callback(data));
     return null;
   });
@@ -80,6 +92,7 @@ const deleteReview = (id, callback) => {
 };
 
 export {
+  getAll,
   getAggregate,
   getReviews,
   getImages,
