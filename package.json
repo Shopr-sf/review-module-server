@@ -51,8 +51,10 @@
     "react-router-dom": "^4.3.1",
     "react-star-rating-component": "^1.4.1",
     "react-test-renderer": "^16.4.1",
+    "redis": "^2.8.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
+    "siege": "^0.2.0",
     "tether": "^1.4.4",
     "tether-drop": "^1.4.2"
   },
