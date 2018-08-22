@@ -5,3 +5,4 @@ config.js
 dataGen
 mongo-database
 postgres-database
+newrelic.js
