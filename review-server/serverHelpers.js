@@ -1,7 +1,7 @@
 var Promise = require('bluebird');
 // import Promise from 'bluebird';
 
-const { pool } = require('../postgres-database/connection.js');
+const pool = require('../postgres-database/connection.js');
 // import { pool } from '../postgres-database/connection';
 // import { generateUsername } from '../review-database/seedHelpers';
 

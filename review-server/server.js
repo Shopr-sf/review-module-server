@@ -21,6 +21,17 @@ var getAll = require("./serverHelpers.js")
 // import { db } from '../review-database/connection';
 
 
+const { Pool } = require('pg');
+
+const pool = new Pool({
+
+  user: 'postgres',
+  host: '54.193.1.144',
+  database: 'testingsdc',
+  password: '',
+  port: '5432',
+});
+
 
 var client = redis.createClient();
 client.on('ready', function() {
@@ -48,7 +59,7 @@ app.use(jsonParser);
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(urlencodedParser);
 
-app.get('*/reviewBundle.js', (req, res) => {
+app.get('https://s3-us-west-1.amazonaws.com/reviewsdc/reviewBundle.js', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../public/reviewBundle.js'));
 });
 
