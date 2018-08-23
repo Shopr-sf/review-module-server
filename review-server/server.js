@@ -24,7 +24,6 @@ var getAll = require("./serverHelpers.js")
 const { Pool } = require('pg');
 
 const pool = new Pool({
-
   user: 'postgres',
   host: '54.193.1.144',
   database: 'testingsdc',
@@ -105,3 +104,8 @@ app.use('*/*', express.static('public'));
 app.listen(port, () => {
   console.log('Listening on port:', port);
 });
+
+
+module.exports = {
+  pool
+}

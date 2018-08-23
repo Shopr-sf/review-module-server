@@ -1,12 +1,13 @@
 var Promise = require('bluebird');
 // import Promise from 'bluebird';
 
-const pool = require('../postgres-database/connection.js');
+const pool = require('server.js');
+
+// const pool = require('../postgres-database/connection.js');
 // import { pool } from '../postgres-database/connection';
 // import { generateUsername } from '../review-database/seedHelpers';
 
 // getAggregate is a function that passes in 'prouctId' as parameter, and ouputs a promise
-
 
 const getAll = productId => new Promise((resolve) => {
   pool.query('SELECT * FROM alltable WHERE product_id = ($1)', [productId])
@@ -101,3 +102,7 @@ const getAll = productId => new Promise((resolve) => {
 //   updateReview,
 //   deleteReview,
 // };
+
+module.exports = {
+  getAll
+};
