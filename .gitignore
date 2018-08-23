@@ -6,3 +6,4 @@ dataGen
 mongo-database
 postgres-database
 newrelic.js
+reviewSDC.pem
