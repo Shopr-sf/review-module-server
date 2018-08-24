@@ -7,7 +7,8 @@ var bodyParser = require ("body-parser");
 var redis = require("redis");
 var express = require("express");
 // import express from 'express';
-var getAll = require("./serverHelpers.js")
+var helper = require("./serverHelpers.js")
+console.log('GeTaLl', helper.getAll);
 // import {
 //   getAll,
 //   getAggregate,
@@ -24,10 +25,10 @@ var getAll = require("./serverHelpers.js")
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: 'postgres',
+  user: 'power_user',
   host: '54.193.1.144',
   database: 'testingsdc',
-  password: '',
+  password: 'p4ssw0rd',
   port: '5432',
 });
 
@@ -78,7 +79,7 @@ app.get('*/reviews/all/:productId', (req, res, next) => {
     res.sendStatus(400);
   }
   client.get(product, (err, reply) => {
-    // console.log('HiTtInG Redis', reply);
+    console.log('HiTtInG Redis', reply);
     if (reply !== null) {
       res.send(reply);
     } else {
@@ -90,8 +91,8 @@ app.get('*/reviews/all/:productId', (req, res, next) => {
   if (typeof product !== 'number') {
     res.sendStatus(400);
   }
-  // console.log('HiTtInG database');
-  getAll(product).then((summary) => {
+  console.log('HiTtInG database');
+  helper.getAll(product).then((summary) => {
     client.set(product, JSON.stringify(summary));
     // console.log('PrOdUcT from promise', product);
     // console.log('SuMmArY from promise', summary);
@@ -108,4 +109,4 @@ app.listen(port, () => {
 
 module.exports = {
   pool
-}
+};
