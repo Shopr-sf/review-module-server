@@ -1,7 +1,7 @@
 var Promise = require('bluebird');
 // import Promise from 'bluebird';
 
-const server = require('./server.js');
+var connectServer = require('./connection.js');
 
 // const pool = require('../postgres-database/connection.js');
 // import { pool } from '../postgres-database/connection';
@@ -9,10 +9,10 @@ const server = require('./server.js');
 
 // getAggregate is a function that passes in 'prouctId' as parameter, and ouputs a promise
 
-console.log('SeRvEr', server);
+console.log('SeRvErCoNnEcT out', connectServer);
 const getAll = productId => new Promise((resolve) => {
-  console.log('ReViEwHeLpEr');
-  server.pool.query('SELECT * FROM alltable WHERE product_id = ($1)', [productId])
+  console.log('SeRvErCoNnEcT in', connectServer);
+  connectServer.pool.query('SELECT * FROM alltable WHERE product_id = ($1)', [productId])
     .then((res) => {
       resolve(res.rows);
     })

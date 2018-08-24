@@ -8,7 +8,6 @@ var redis = require("redis");
 var express = require("express");
 // import express from 'express';
 var helper = require("./serverHelpers.js")
-console.log('GeTaLl', helper.getAll);
 // import {
 //   getAll,
 //   getAggregate,
@@ -20,18 +19,6 @@ console.log('GeTaLl', helper.getAll);
 // } from './serverHelpers';
 // import newrelic from 'newrelic';
 // import { db } from '../review-database/connection';
-
-
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  user: 'power_user',
-  host: '54.193.1.144',
-  database: 'testingsdc',
-  password: 'p4ssw0rd',
-  port: '5432',
-});
-
 
 var client = redis.createClient();
 client.on('ready', function() {
@@ -59,10 +46,11 @@ app.use(jsonParser);
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(urlencodedParser);
 
-app.get('https://s3-us-west-1.amazonaws.com/reviewsdc/reviewBundle.js', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../public/reviewBundle.js'));
-});
+//app.get('*/reviewBundle.js', (req, res) => {
+//  res.sendFile(path.resolve(__dirname, '../public/reviewBundle.js'));
+//});
 
+app.use('*/:productId', express.static('https://s3-us-west-1.amazonaws.com/reviewsdc/reviewBundle.js'));
 
 // app.get('*/reviews/all/:productId', (req, res) => {
 //   const product = Number(req.params.productId.replace(/[^0-9]/g,''));
@@ -93,20 +81,15 @@ app.get('*/reviews/all/:productId', (req, res, next) => {
   }
   console.log('HiTtInG database');
   helper.getAll(product).then((summary) => {
-    client.set(product, JSON.stringify(summary));
+    client.set(product, JSON.stringify(summary), 'EX', 60);
     // console.log('PrOdUcT from promise', product);
     // console.log('SuMmArY from promise', summary);
     return res.send(summary);
   });
 });
 
-app.use('*/*', express.static('public'));
+//app.use('*/*', express.static('public'));
 
 app.listen(port, () => {
   console.log('Listening on port:', port);
 });
-
-
-module.exports = {
-  pool
-};
